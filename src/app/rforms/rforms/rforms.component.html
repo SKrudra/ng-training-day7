@@ -1,0 +1,26 @@
+<p>rforms works!</p>
+
+
+
+<form [formGroup]="profile">
+    <label for="firstName">
+        Fist Name: <input type="text" name="firstName" formControlName="firstName">
+    </label>
+    <label for="lastName">
+        Last Name: <input type="text" name="lastName" formControlName="lastName">
+    </label>
+    <br>
+    Address
+    <div formGroupName="address">
+        <label for="hno">
+            House Number: <input type="text" name="hno" formControlName="hno">
+        </label>
+        <label for="city">
+            House Number: <input type="text" name="city" formControlName="city">
+        </label>
+    </div>
+</form>
+
+
+<br>
+you entered: {{profile.value | json}}
