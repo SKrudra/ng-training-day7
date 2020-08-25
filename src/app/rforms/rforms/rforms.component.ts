@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-rforms',
@@ -23,16 +23,32 @@ export class RformsComponent implements OnInit {
 
 
     this.profile = this.fb.group({
-      firstName: [''],
+      firstName: ['', Validators.required],
       lastName: [''],
+      phoneNumber: ['', [Validators.required, Validators.minLength(10)]],
+      email: ['', [Validators.email, Validators.required]],
       address: this.fb.group({
         hno: [''],
         city: ['Pune']
       })
     });
-   }
-
-  ngOnInit(): void {
   }
 
+  ngOnInit(): void {
+    this.profile.get('firstName').valueChanges.subscribe(data => console.log(data));
+  }
+
+  updateValues() {
+    this.profile.patchValue({
+      lastName: 'Kumar',
+      phoneNumber: 9898989898,
+      address: {
+        hno: 10
+      }
+    });
+  }
+
+  onSubmit() {
+    console.log('profile: ', this.profile.value);
+  }
 }
